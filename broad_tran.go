@@ -73,8 +73,7 @@ func BroadcastTransaction(amount string, repostory string) ResultObj {
 	// sign
 	var PrivateKey = configJson.GenesisPrivatekey
 	_privatekey, _ := hex.DecodeString(PrivateKey)
-	var privateKey ed25519.PrivKeyEd25519
-	copy(privateKey[:], _privatekey)
+	var privateKey = ed25519.PrivKey(_privatekey) //tendermint v0.34.1
 	signStr, err := privateKey.Sign([]byte(base64msg))
 	// define response
 	var res ResultObj

@@ -28,8 +28,7 @@ func BroadCastMsg(json MsgTx) ResultObj {
 	var base64msg = base64.StdEncoding.EncodeToString([]byte(json.Msg))
 	// sign
 	_privatekey, _ := hex.DecodeString(json.PrivateKey)
-	var privateKey ed25519.PrivKeyEd25519
-	copy(privateKey[:], _privatekey)
+	var privateKey = ed25519.PrivKey(_privatekey) //tendermint v0.34.1
 	signStr, err := privateKey.Sign([]byte(base64msg))
 	// define response
 	var res ResultObj
